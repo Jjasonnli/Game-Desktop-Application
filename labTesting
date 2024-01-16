@@ -1,0 +1,393 @@
+# imports
+import tkinter as tk
+from tkinter import *
+from tkinter import ttk
+# will be used to run files but only locally
+import os
+from tkinter.ttk import Style
+
+# creates the GUI
+root = Tk()
+# creates the window name
+root.title("JDDK Desktop Application")
+# creates the size of the window
+root.geometry("800x600")
+# creates a notebook in the window
+my_notebook = ttk.Notebook(root)
+my_notebook.pack(fill="x")
+# used to later get rid of the tabs
+style = Style()
+
+
+# function to open tetris, THIS CODE ONLY WORKS ON DEVIN's LAPTOP, runs local
+def open_tetris():
+    os.startfile("C:/Users/dleun/PycharmProjects/pythonProject4/main.exe")
+
+
+def open_pong():
+    os.startfile("C:/Users/dleun/PycharmProjects/pythonProject4/pong.exe")
+
+
+# shows Tetris' window
+def show_tetris():
+    my_notebook.select(2)
+
+
+def show_contactUsPage():
+    my_notebook.select(3)
+
+
+def show_homePage():
+    my_notebook.select(0)
+
+
+def show_aboutPage():
+    my_notebook.select(1)
+
+
+def show_registrationPage():
+    my_notebook.select(5)
+
+
+def show_pongPage():
+    my_notebook.select(4)
+
+def show_wordlePage():
+    my_notebook.select(6)
+
+def show_scoreboardPage():
+    my_notebook.select(7)
+
+# Used to display username and create greeting based on custom username input
+username = "Guest"
+usernameValue = tk.StringVar()
+
+
+def getUsername():
+    global registerInput
+    username = usernameValue.get()
+    greeting = Label(test, text="Hello " + username, font=("Trebuchet MS", 20)).pack(fill="x")
+    usernameValue.set("")
+    return
+
+
+# creates all the different windows or tabs
+homePage = Frame(my_notebook, width=800, height=600, bg="light steel blue")
+aboutUsPage = Frame(my_notebook, width=800, height=600, bg="light steel blue")
+tetrisHomePage = Frame(my_notebook, width=800, height=600, bg="light steel blue")
+registerPage = Frame(my_notebook, width=800, height=600, bg="light steel blue")
+pongPage = Frame(my_notebook, width=800, height=600, bg="light steel blue")
+test = Frame(my_notebook, width=800, height=600, bg="light steel blue")
+wordleHomePage = Frame(my_notebook, width=800, height=600, bg="light steel blue")
+scoreboardPage = Frame(my_notebook, width=800, height=600, bg="light steel blue")
+# fills the pages, maks it visible
+homePage.pack(fill="x", expand=1)
+aboutUsPage.pack(fill="x", expand=1)
+tetrisHomePage.pack(fill="x", expand=1)
+registerPage.pack(fill="x", expand=1)
+pongPage.pack(fill="x", expand=1)
+test.pack(fill="x", expand=1)
+wordleHomePage.pack(fill="x",expand=1)
+scoreboardPage.pack(fill="x",expand=1)
+
+# creates the tabs
+my_notebook.add(homePage, text="Blue Tab")
+my_notebook.add(aboutUsPage, text="Red Tab")
+my_notebook.add(tetrisHomePage, text="Tetris")
+my_notebook.add(registerPage, text="Register")
+my_notebook.add(pongPage, text="Pong")
+my_notebook.add(test, text="test")
+my_notebook.add(wordleHomePage,text="Wordle")
+##
+my_notebook.add(scoreboardPage, text = "Scoreboard")
+
+# HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME
+webBanner = Label(homePage, text="JDDK Desktop Application", font=("Trebuchet MS", 40), background="lightblue",
+                  width=30, borderwidth=2, relief="solid").pack(pady=0)
+# Used as greeting to greet user based off of their username if given
+# create the greeting label with an initial text
+greeting = Label(homePage, text="Welcome, " + username, font=("Trebuchet MS", 20))
+greeting.pack(fill="x")
+
+# define a function to update the greeting label with the contents of the "username.txt" file
+def update_greeting():
+    with open("username.txt", "r") as f:
+        username = f.read()
+        greeting.config(text="Welcome, " + username)
+
+# call the function initially to display the current username
+update_greeting()
+ 
+# define the function to update the username and call the update_greeting function to update the greeting label
+def getUsername():
+    username = usernameValue.get()
+    with open("username.txt", "w") as f:
+        f.write(username)
+    update_greeting()
+
+
+# creates the web banner and nav bar
+navBar = Frame(homePage, bg="light steel blue")
+navBar.columnconfigure(0, weight=1)
+navBar.columnconfigure(1, weight=1)
+navButton = Button(navBar, text="About Us",  relief="raised", font=("Arial", 20),borderwidth=4,
+                   command=show_aboutPage)
+navButton.grid(row=0, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+scoreboardButton = Button(navBar, text="Scoreboard", relief="raised", font=("Arial", 20),borderwidth=4, 
+                          command=show_scoreboardPage)
+scoreboardButton.grid(row=0, column=1, sticky=tk.W + tk.E, padx=5, pady=5)
+navBar.pack(fill="x")
+
+
+# gets tetris image
+tetrisImage = PhotoImage(file="TETRIS_LOGO.png")
+# uses every 4 pixels for x and y axis
+tetrisPhoto = tetrisImage.subsample(4, 4)
+# dino image
+dinoImage = PhotoImage(file="TETRIS_LOGO.png")
+dinoPhoto = dinoImage.subsample(4, 4)
+# wordle image
+wordleImage = PhotoImage(file="TETRIS_LOGO.png")
+wordlePhoto = wordleImage.subsample(3, 3)
+# pong image
+pongImage = PhotoImage(file="TETRIS_LOGO.png")
+pongPhoto = pongImage.subsample(2, 2)
+
+# creates Frame for homepage that organizes buttons and labels
+gameframe = Frame(homePage, bg="light steel blue")
+# weight refers to size fill and if it will push other areas
+gameframe.columnconfigure(0, weight=1)
+gameframe.columnconfigure(1, weight=1)
+gameframe.columnconfigure(2, weight=1)
+# adds tetris button, redirect to tetris page
+tetrisButton = Button(gameframe, image=tetrisPhoto, command=show_tetris, height=155, width=80, borderwidth=10)
+tetrisButton.grid(row=0, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+# pong button, redirect to pong page
+pongButton = Button(gameframe, image=pongPhoto, command=show_pongPage, height=155, width=80, borderwidth=10)
+pongButton.grid(row=0, column=1, sticky=tk.W + tk.E, padx=5, pady=5)
+# wordle button
+wordleButton = Button(gameframe, image=wordlePhoto, command=show_wordlePage, height=155, width=80, borderwidth=10)
+wordleButton.grid(row=0, column=2, sticky=tk.W + tk.E, padx=5, pady=5)
+# labels for respective games
+tetrisLabel = Label(gameframe, text="Tetris", highlightthickness=2, highlightbackground="grey")
+tetrisLabel.grid(row=1, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+pongLabel = Label(gameframe, text="Pong", highlightthickness=2, highlightbackground="grey")
+pongLabel.grid(row=1, column=1, sticky=tk.W + tk.E, padx=5, pady=(10, 10))
+wordleLabel = Label(gameframe, text="Wordle", highlightthickness=2, highlightbackground="grey")
+wordleLabel.grid(row=1, column=2, sticky=tk.W + tk.E, padx=5, pady=5)
+
+# registration section of home page, the content and display, redirects to register page
+# registrationSection = Frame(homePage)
+# registerLabel = Label(registrationSection, text="Don't have an account? Register Below!")
+# registerButton = Button(registrationSection, text="Register Here!", command=show_registrationPage)
+# registerLabel.grid(row=3, column=1, sticky=tk.W + tk.E, padx=5)
+# registerButton.grid(row=4, column=1, sticky=tk.W + tk.E, padx=5)
+# # contact section for home page, redirects to contact page
+# contactLabel = Label(registrationSection, text="Have a question? Contact Us Below!")
+# contactButton = Button(registrationSection, text="Contact Us Here!")
+# contactLabel.grid(row=5, column=1, sticky=tk.W + tk.E, padx=5)
+# contactButton.grid(row=6, column=1, sticky=tk.W + tk.E, padx=5)
+# registrationSection.pack(pady=10)
+
+
+# if username != "":
+#     webBanner = Label(registrationPage, text=username, font=("Trebuchet MS", 40),
+#                       background="lightblue", width=30, borderwidth=2, relief="solid").pack(pady=0)
+gameframe.pack(fill="x")
+
+registerLabel = Label(homePage, text="Don't have an account? Register Below!")
+registerLabel.pack(anchor="center")
+registerButton = Button(homePage,text="Register Here!", command=show_registrationPage)
+registerButton.pack(anchor="center")
+spacer = Label(homePage,background="light steel blue",pady=5)
+spacer.pack(anchor="center")
+contactLabel = Label(homePage, text="Have a question? Contact Us Below!")
+contactLabel.pack(anchor="center")
+contactButton = Button(homePage, text="Contact Us Here!")
+contactButton.pack(anchor="center")
+
+
+# TETRIS TETRIS TETRIS TETRIS TETRIS TETRIS TETRIS
+tetrisWebBanner = Label(tetrisHomePage, text="JDDK Desktop Application", font=("Trebuchet MS", 40),
+                        background="lightblue", width=30, borderwidth=2, relief="solid").pack(pady=0)
+# navigation Bar
+navBar = Frame(tetrisHomePage, bg="light steel blue")
+navBar.columnconfigure(0, weight=1)
+navBar.columnconfigure(1, weight=1)
+navButton = Button(navBar, text="Home Page",  relief="raised", font=("Arial", 20),borderwidth=4,
+                   command=show_homePage)
+navButton.grid(row=0, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+scoreboardButton = Button(navBar, text="Scoreboard", relief="raised", font=("Arial", 20),borderwidth=4)
+scoreboardButton.grid(row=0, column=1, sticky=tk.W + tk.E, padx=5, pady=5)
+navBar.pack(fill="x")
+# tips and tricks content
+content = Frame(tetrisHomePage, highlightthickness=2, highlightbackground="black",border=20)
+header = Label(content, text="Tips & Tricks",font=("Arial",25,"underline"),pady=5,padx=5).pack(fill="x")
+tetrisTipsAndTricks1 = Label(content, text="Use the Left and Right Arrow keys to move the tetronome",font=("Arial",13), padx=10).pack(fill="x")
+tetrisTipsAndTricks2 = Label(content, text="Press SPACEBAR to bring the tetronome all the way down",font=("Arial",13)).pack(fill="x")
+tetrisTipsAndTricks3 = Label(content, text="Press C to hold a tetronome",font=("Arial",13)).pack(fill="x")
+tetrisTipsAndTricks4 = Label(content, text="Use the Up Arrow key to rotate the tetronome",font=("Arial",13)).pack(fill="x")
+tetrisTipsAndTricks5 = Label(content, text="Try to fill in rows to remove them",font=("Arial",13)).pack(fill="x")
+tetrisTipsAndTricks6 = Label(content, text="Use the rotate function to make the best tetronome placement",font=("Arial",13)).pack(fill="x")
+content.pack(anchor="center", pady=30)
+
+playTetrisButton = Button(tetrisHomePage, text="Click to Play!", command=open_tetris, width=20, height=2).pack(
+    anchor="center")
+
+# ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT ABOUT
+aboutWebBanner = Label(aboutUsPage, text="JDDK Desktop Application", font=("Trebuchet MS", 40), background="lightblue",
+                       width=30, borderwidth=2, relief="solid").pack(pady=0)
+# navigation baar
+navBar = Frame(aboutUsPage, bg="light steel blue")
+navBar.columnconfigure(0, weight=1)
+navBar.columnconfigure(1, weight=1)
+navButton = Button(navBar, text="Home Page",  relief="raised", font=("Arial", 20),borderwidth=4,
+                   command=show_homePage)
+navButton.grid(row=0, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+scoreboardButton = Button(navBar, text="Scoreboard", relief="raised", font=("Arial", 20),borderwidth=4)
+scoreboardButton.grid(row=0, column=1, sticky=tk.W + tk.E, padx=5, pady=5)
+navBar.pack(fill="x")
+
+content = Frame(aboutUsPage, bg="white")
+content.columnconfigure(0, weight=1)
+content.columnconfigure(1, weight=1)
+content.columnconfigure(2, weight=1)
+content.columnconfigure(3, weight=1)
+
+img1 = Label(content, image=tetrisPhoto, height=155, width=80, borderwidth=10)
+img1.grid(row=0, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+img2 = Label(content, image=tetrisPhoto, height=155, width=80, borderwidth=10)
+img2.grid(row=0, column=1, sticky=tk.W + tk.E, padx=5, pady=5)
+img3 = Label(content, image=tetrisPhoto, height=155, width=80, borderwidth=10)
+img3.grid(row=0, column=2, sticky=tk.W + tk.E, padx=5, pady=5)
+img4 = Label(content, image=tetrisPhoto, height=155, width=80, borderwidth=10)
+img4.grid(row=0, column=3, sticky=tk.W + tk.E, padx=5, pady=5)
+
+para1 = Label(content, text="Wordle Wordle Wordle Wordle", height=5)
+para1.grid(row=1, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+para2 = Label(content, text="Wordle Wordle Wordle Wordle", height=5)
+para2.grid(row=1, column=1, sticky=tk.W + tk.E, padx=5, pady=5)
+para3 = Label(content, text="Wordle Wordle Wordle Wordle", height=5)
+para3.grid(row=1, column=2, sticky=tk.W + tk.E, padx=5, pady=5)
+para4 = Label(content, text="Wordle Wordle Wordle Wordle", height=5)
+para4.grid(row=1, column=3, sticky=tk.W + tk.E, padx=5, pady=5)
+
+content.pack(fill="x")
+
+# REGISTRATION REGISTRATION REGISTRATION REGISTRATION REGISTRATION REGISTRATION REGISTRATION REGISTRATION
+registrationWebBanner = Label(test, text="JDDK Desktop Application", font=("Trebuchet MS", 40), background="lightblue",
+                              width=30, borderwidth=2, relief="solid").pack(fill="x")
+# navigation bar
+navBar = Frame(test, bg="light steel blue")
+navBar.columnconfigure(0, weight=1)
+navBar.columnconfigure(1, weight=1)
+navButton = Button(navBar, text="Home Page",  relief="raised", font=("Arial", 20),borderwidth=4,
+                   command=show_homePage)
+navButton.grid(row=0, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+scoreboardButton = Button(navBar, text="Scoreboard", relief="raised", font=("Arial", 20),borderwidth=4)
+scoreboardButton.grid(row=0, column=1, sticky=tk.W + tk.E, padx=5, pady=5)
+navBar.pack(fill="x")
+
+registerLabel = Label(test, text="Enter username").pack(fill="x", pady=(20, 0))
+# registerLabel = Label(homePage,text="Register Here!").pack(fill="x",pady=(20,0))
+registerInput = Entry(test, textvariable=usernameValue).pack(fill="x")
+# registerbutton = Button(homePage,text="Submit",command=getUsername).pack(fill="x")
+registerbutton = Button(test, text="Submit", command=getUsername).pack(fill="x")
+
+# PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG PONG
+pongWebBanner = Label(pongPage, text="JDDK Desktop Application", font=("Trebuchet MS", 40), background="lightblue",
+                      width=30, borderwidth=2, relief="solid").pack(pady=0)
+
+navBar = Frame(pongPage, bg="light steel blue")
+navBar.columnconfigure(0, weight=1)
+navBar.columnconfigure(1, weight=1)
+navButton = Button(navBar, text="Home Page", relief="raised", font=("Arial", 20),borderwidth=4,
+                   command=show_homePage)
+navButton.grid(row=0, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+scoreboardButton = Button(navBar, text="Scoreboard" , relief="raised", font=("Arial", 20),borderwidth=4)
+scoreboardButton.grid(row=0, column=1, sticky=tk.W + tk.E, padx=5, pady=5)
+navBar.pack(fill="x")
+
+content = Frame(pongPage, highlightthickness=2, highlightbackground="black",border=20)
+header = Label(content, text="Tips & Tricks",font=("Arial",25,"underline"),pady=5,padx=15).pack(fill="x")
+pongTipsAndTricks1 = Label(content, text="Player 1: Press W to move UP ",font=("Arial",13), padx=10).pack(fill="x")
+pongTipsAndTricks2 = Label(content, text="Player 1: Press S to move DOWN",font=("Arial",13)).pack(fill="x")
+pongTipsAndTricks3 = Label(content, text="Player 2: Press UP Arrow Key to move UP",font=("Arial",13)).pack(fill="x")
+pongTipsAndTricks4 = Label(content, text="Player 2: Press DOWN Arrow Key to move DOWN",font=("Arial",13)).pack(fill="x")
+content.pack(anchor="center", pady=30)
+
+pongTipsAndTricks5 = Label(content, text="Try to predict where the ball will bounce!",font=("Arial",13)).pack(fill="x")
+pongTipsAndTricks6 = Label(content, text="Try to position your bar in the center for the most flexibility",font=("Arial",13)).pack(
+    fill="x")
+playTetrisButton = Button(pongPage, text="Click to Play!", command=open_pong, width=20, height=2).pack(anchor="center")
+
+
+#WORDLE WORDLE WORDLE WORDLE WORDLE WORDLE WORDLE WORDLE WORDLE WORDLE WORDLE WORDLE WORDLE WORDLE WORDLE
+wordleWebBanner = Label(wordleHomePage, text="JDDK Desktop Application", font=("Trebuchet MS", 40),
+                        background="lightblue", width=30, borderwidth=2, relief="solid").pack(pady=0)
+# navigation Bar
+navBar = Frame(wordleHomePage, bg="light steel blue")
+navBar.columnconfigure(0, weight=1)
+navBar.columnconfigure(1, weight=1)
+navButton = Button(navBar, text="Home Page", relief="raised", font=("Arial", 20),borderwidth=4,
+                   command=show_homePage)
+navButton.grid(row=0, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+scoreboardButton = Button(navBar, text="Scoreboard", relief="raised", font=("Arial", 20),borderwidth=4)
+scoreboardButton.grid(row=0, column=1, sticky=tk.W + tk.E, padx=5, pady=5)
+navBar.pack(fill="x")
+# tips and tricks content
+content = Frame(wordleHomePage, highlightthickness=2, highlightbackground="black",pady=5,padx=5,border=20)
+header = Label(content, text="Tips & Tricks", font=("Arial",25,"underline"),pady=5,padx=5).pack(fill="x")
+wordleTipsAndTricks1 = Label(content, text="Use common letters for the first guess",font=("Arial",13)).pack(fill="x")
+wordleTipsAndTricks2 = Label(content, text="Keep track of the amount of guesses left",font=("Arial",13)).pack(fill="x")
+wordleTipsAndTricks3 = Label(content, text="Try to rhyme the words when you are close to figuring the word",font=("Arial",13)).pack(fill="x")
+wordleTipsAndTricks4 = Label(content, text="Save any uncommon letters for the end",font=("Arial",13)).pack(fill="x")
+wordleTipsAndTricks5 = Label(content, text="Green means the letter is in the correct spot",font=("Arial",13)).pack(fill="x")
+wordleTipsAndTricks6 = Label(content, text="Yellow means the letter appears in the answer",font=("Arial",13)).pack(fill="x")
+content.pack(anchor="center", pady=30)
+
+playWordleButton = Button(wordleHomePage, text="Click to Play!", command=open_tetris, width=20, height=2).pack(
+    anchor="center")
+
+
+
+#SCOREBOARD SCOREBOARD SCOREBOARD SCOREBOARD SCOREBOARD SCOREBOARD SCOREBOARD SCOREBOARD SCOREBOARD SCOREBOARD SCOREBOARD 
+scoreboardWebBanner = Label(scoreboardPage, text="Scoreboard", font=("Trebuchet MS", 40), background="lightblue",
+                  width=30, borderwidth=2, relief="solid")
+scoreboardWebBanner.pack(pady=0)
+
+# creates the web banner and nav bar
+navBar = Frame(scoreboardPage, bg="light steel blue")
+navBar.columnconfigure(0, weight=1)
+navBar.columnconfigure(1, weight=1)
+navButton = Button(navBar, text="Home Page",  relief="raised", font=("Arial", 20),borderwidth=4,
+                   command=show_homePage)
+navButton.grid(row=0, column=0, sticky=tk.W + tk.E, padx=5, pady=5)
+
+def update_scoreboard():
+    # read the file contents
+    with open("scores.txt", "r") as f:
+        data = f.read()
+
+    # update the label text
+    tetrisScore.config(text="Tetris' current maxscore: " + data)
+
+scoreboardButton = Button(navBar, text="Scoreboard", relief="raised", font=("Arial", 20), borderwidth=4, command=update_scoreboard)
+scoreboardButton.grid(row=0, column=1, sticky=tk.W + tk.E, padx=5, pady=5)
+navBar.pack(fill="x")
+
+#Scoreboard content
+#open text file in read mode
+with open("scores.txt", "r") as f:
+    data = f.read()
+
+content = Frame(scoreboardPage, highlightthickness=2, highlightbackground="black",pady=5,padx=5,border=20)
+header = Label(content, text="Game Max Scores", font=("Arial",25,"underline"),pady=5,padx=5)
+header.pack(fill="x")
+tetrisScore = Label(content, text="Tetris' current maxscore: " + data ,font=("Arial",25))
+tetrisScore.pack(fill="x")
+content.pack(fill="both", expand=True)
+
+root.resizable(False, False)
+style.layout('TNotebook.Tab', [])  # turn off tabs
+root.mainloop()
