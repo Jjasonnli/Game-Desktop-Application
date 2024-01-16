@@ -1,5 +1,6 @@
 # imports
 import tkinter as tk
+import subprocess
 from tkinter import *
 from tkinter import ttk
 # will be used to run files but only locally
@@ -19,14 +20,16 @@ my_notebook.pack(fill="x")
 style = Style()
 
 
-# function to open tetris, THIS CODE ONLY WORKS ON Jason's LAPTOP, runs local
+# function to open tetris, THIS CODE ONLY WORKS ON MAC OS, runs local
 def open_tetris():
-    os.startfile("C:/Users/jason/PycharmProjects/pythonProject4/main.exe")
-
+    subprocess.run(["python3.11", "tetris.py"])
 
 def open_pong():
-    os.startfile("C:/Users/jason/PycharmProjects/pythonProject4/pong.exe")
+    subprocess.run(["python3.11", "breakoutVSCode.py"])
+    #os.startfile("C:/Users/dleun/PycharmProjects/pythonProject4/pong.exe")
 
+def open_wordle():
+    subprocess.run(["python3.11", "UpdatedCodeWordle.py"])
 
 # shows Tetris' window
 def show_tetris():
@@ -346,7 +349,7 @@ wordleTipsAndTricks5 = Label(content, text="Green means the letter is in the cor
 wordleTipsAndTricks6 = Label(content, text="Yellow means the letter appears in the answer",font=("Arial",13)).pack(fill="x")
 content.pack(anchor="center", pady=30)
 
-playWordleButton = Button(wordleHomePage, text="Click to Play!", command=open_tetris, width=20, height=2).pack(
+playWordleButton = Button(wordleHomePage, text="Click to Play!", command=open_wordle, width=20, height=2).pack(
     anchor="center")
 
 
