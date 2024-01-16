@@ -20,7 +20,7 @@ my_notebook.pack(fill="x")
 style = Style()
 
 
-# function to open tetris, THIS CODE ONLY WORKS ON MAC OS, runs local
+# function to open tetris, THIS CODE ONLY WORKS IF THE FILES ARE IN THE SAME DIRECTORY/FOLDER, runs local
 def open_tetris():
     subprocess.run(["python3.11", "tetris.py"])
 
