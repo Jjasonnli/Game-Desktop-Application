@@ -19,13 +19,13 @@ my_notebook.pack(fill="x")
 style = Style()
 
 
-# function to open tetris, THIS CODE ONLY WORKS ON DEVIN's LAPTOP, runs local
+# function to open tetris, THIS CODE ONLY WORKS ON Jason's LAPTOP, runs local
 def open_tetris():
-    os.startfile("C:/Users/dleun/PycharmProjects/pythonProject4/main.exe")
+    os.startfile("C:/Users/jason/PycharmProjects/pythonProject4/main.exe")
 
 
 def open_pong():
-    os.startfile("C:/Users/dleun/PycharmProjects/pythonProject4/pong.exe")
+    os.startfile("C:/Users/jason/PycharmProjects/pythonProject4/pong.exe")
 
 
 # shows Tetris' window
