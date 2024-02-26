@@ -1,4 +1,4 @@
-# Game-Web-Application
+# Game-Desktop-Application
 A web application that hosts Pong, Worlde, and Tetris. It also has insightful tips and tricks for each respective game. 
 
 To play: RUN the file called : labTesting
